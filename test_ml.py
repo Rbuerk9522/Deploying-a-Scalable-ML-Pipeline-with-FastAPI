@@ -1,28 +1,54 @@
 import pytest
-# TODO: add necessary import
+from ml.model import train_model, inference, compute_model_metrics
+from sklearn.linear_model import LogisticRegression
+import numpy as np
 
 # TODO: implement the first test. Change the function name and input as needed
-def test_one():
+def test_model_algorithm_type():
     """
-    # add description for the first test
+    testing to confirm that the model returns a LogisticRegression model
     """
-    # Your code here
-    pass
+    
+    X = np.array([[0, 1], [1, 0]])
+    y = np.array([0, 1])
+
+    model = train_model(X, y)
+
+    assert isinstance(model, LogisticRegression)
+
 
 
 # TODO: implement the second test. Change the function name and input as needed
-def test_two():
+def test_inference_output_type_and_shape():
     """
-    # add description for the second test
+    # testing to guarantee that inference() returns a numpy array and the output length equals the input rows
     """
-    # Your code here
+    X = np.array([[0, 1], [1, 0]])
+    y = np.array([0, 1])
+
+    model = train_model(X, y)
+    preds = inference(model, X)
+
+    assert isinstance(preds, np.ndarray)
+    assert len(preds) == len(X)
+
     pass
 
 
 # TODO: implement the third test. Change the function name and input as needed
-def test_three():
+def test_performance_metric_values():
     """
-    # add description for the third test
+    # testing to check that compute_model_metric() returns the correct types and that all outputs are floats
     """
-    # Your code here
+    X = np.array([[0, 1], [1, 0]])
+    y = np.array([0, 1])
+
+    model = train_model(X, y)
+    preds = inference(model, X)
+    p, r, f = compute_model_metrics(y, preds)
+
+    assert isinstance(p, float)
+    assert isinstance(r, float)
+    assert isinstance(f, float)
+
     pass
